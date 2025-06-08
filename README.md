@@ -1,1 +1,1 @@
-# channel-cvtc-jira-service-management-test
+# channel-abcd-jira-service-management-test
