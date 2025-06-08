@@ -7,6 +7,7 @@ on:
  
 jobs:
   automatic-api-review-workflow:
+    environment: PROD
     #uses: BCP-APIs/action-fix-design/.github/workflows/automatic-api-review-workflow.yaml@v2
     uses: DPA-APIS/action-fix-design/.github/workflows/automatic-api-review-workflow.yaml@fix-fase02
     secrets: inherit
