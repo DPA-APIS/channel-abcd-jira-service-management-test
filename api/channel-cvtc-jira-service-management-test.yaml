@@ -1,14 +1,14 @@
 openapi: 3.0.1
 info:
   title: API UX CVTC Jira Service Management V1
-  description: 'Permite registrar y actualizar Issues, Attachment de Jira SM.'
+  description: 'Permite registrar y actualizar Issues, Attachment de Jira.'
   version: 1.0.0
 servers:
   - url: /channel/cvtc/v1
-x-bcp-api-type: UX
-x-bcp-api-id: cvtc-jira-service-management
+x-dpa-api-type: UX
+x-dpa-api-id: cvtc-jira-service-management
 externalDocs:
-  url: 'https://github.com/BCP-APIs/channel-cvtc-jira-service-management/blob/master/docs/README.md'
+  url: 'https://XXXXX.com'
   description: Más información
 tags:
   - name: Issue Comments CVTC
