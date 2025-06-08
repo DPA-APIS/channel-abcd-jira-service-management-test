@@ -20,7 +20,7 @@ paths:
     post:
       tags:
         - Issue Comments CVTC
-      summary: Agrega comentaria CCCC DDDDD CCCC DDDDD.
+      summary: Agrega comentaria CCCC DDDDD CCCC DDDDDVVVV.
       description: |-
         ### Acerca de la funcionalidad expuesta <br/>
         La funcionalidad permite crear un comentario contenido dentro de un Issue en Jira.
