@@ -7,6 +7,5 @@ on:
  
 jobs:
   automatic-api-review-workflow:
-    #uses: BCP-APIs/action-fix-design/.github/workflows/automatic-api-review-workflow.yaml@v2
     uses: diomedex10/action-fix-design/.github/workflows/automatic-api-review-workflow.yaml@fix-fase02
     secrets: inherit
