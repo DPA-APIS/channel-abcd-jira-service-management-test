@@ -1,25 +1,25 @@
 openapi: 3.0.1
 info:
-  title: API UX CVTC Jira Service Management V1
+  title: API UX ABCD Jira Service Management V1
   description: 'Permite registrar y actualizar Issues, Attachment de Jira.'
   version: 1.0.0
 servers:
-  - url: /channel/cvtc/v1
+  - url: /channel/abcd/v1
 x-dpa-api-type: UX
-x-dpa-api-id: cvtc-jira-service-management
+x-dpa-api-id: abcd-jira-service-management
 externalDocs:
   url: 'https://XXXXX.com'
   description: Más información
 tags:
-  - name: Issue Comments CVTC
-    description: Issue Comments CVTC Controller
-  - name: Issue CVTC
-    description: Issue CVTC Controller
+  - name: Issue Comments 
+    description: Issue Comments  Controller
+  - name: Issue 
+    description: Issue  Controller
 paths:
   '/issues/{issueIdOrKey}/comment':
     post:
       tags:
-        - Issue Comments CVTC
+        - Issue Comments 
       summary: Agrega comentarios.
       description: |-
         ### Acerca de la funcionalidad expuesta <br/>
