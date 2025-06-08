@@ -1,26 +1,26 @@
 openapi: 3.0.1
 info:
-  title: API UX CVTC Jira Service Management V1
-  description: 'Permite registrar y actualizar Issues, Attachment de Jira SM.'
+  title: API UX ABCD Jira Service Management V1
+  description: 'Permite registrar y actualizar Issues, Attachment de Jira.'
   version: 1.0.0
 servers:
-  - url: /channel/cvtc/v1
-x-bcp-api-type: UX
-x-bcp-api-id: cvtc-jira-service-management
+  - url: /channel/abcd/v1
+x-dpa-api-type: UX
+x-dpa-api-id: abcd-jira-service-management
 externalDocs:
-  url: 'https://github.com/BCP-APIs/channel-cvtc-jira-service-management/blob/master/docs/README.md'
+  url: 'https://XXXXX.com'
   description: Más información
 tags:
-  - name: Issue Comments CVTC
-    description: Issue Comments CVTC Controller
-  - name: Issue CVTC
-    description: Issue CVTC Controller
+  - name: Issue Comments 
+    description: Issue Comments  Controller
+  - name: Issue 
+    description: Issue  Controller
 paths:
   '/issues/{issueIdOrKey}/comment':
     post:
       tags:
-        - Issue Comments CVTC
-      summary: Agrega comentaria KKKKK.
+        - Issue Comments 
+      summary: Agrega comentarios.
       description: |-
         ### Acerca de la funcionalidad expuesta <br/>
         La funcionalidad permite crear un comentario contenido dentro de un Issue en Jira.
