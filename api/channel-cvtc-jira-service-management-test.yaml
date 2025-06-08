@@ -1,0 +1,688 @@
+openapi: 3.0.1
+info:
+  title: API UX CVTC Jira Service Management V1
+  description: 'Permite registrar y actualizar Issues, Attachment de Jira SM.'
+  version: 1.0.0
+servers:
+  - url: /channel/cvtc/v1
+x-bcp-api-type: UX
+x-bcp-api-id: cvtc-jira-service-management
+externalDocs:
+  url: 'https://github.com/BCP-APIs/channel-cvtc-jira-service-management/blob/master/docs/README.md'
+  description: Más información
+tags:
+  - name: Issue Comments CVTC
+    description: Issue Comments CVTC Controller
+  - name: Issue CVTC
+    description: Issue CVTC Controller
+paths:
+  '/issues/{issueIdOrKey}/comment':
+    post:
+      tags:
+        - Issue Comments CVTC
+      summary: Agrega comentarios.
+      description: |-
+        ### Acerca de la funcionalidad expuesta <br/>
+        La funcionalidad permite crear un comentario contenido dentro de un Issue en Jira.
+         
+        ### Data de Prueba
+        Ninguno.
+
+        ### Precondiciones para el consumo de esta versión de la API
+        Ninguno.
+
+        ### Usos válidos de Query Parameters
+        No Aplica
+
+        ### Variantes válidas del Payload (Cuerpo del mensaje)
+        No aplica.
+
+        ### Lista de Valores usadas en esta versión de la API
+        No aplica.
+
+        ### Códigos de error usados en esta versión de la API
+        |  Código | HTTP Status | Descripción |
+        |---------|-------------|-------------|
+        | CVTC-02 | 201 | Creacion exitosa
+        | CVTC-04 | 400 | Los datos proporcionados no son válidos
+        | CVTC-05 | 401 | Las credenciales de autenticación son incorrectas
+        | CVTC-06 | 403 | Acceso denegado
+        | CVTC-12 | 429 | Servicio saturado de consultas
+        | CVTC-07 | 404 | Recurso invalido  
+        | CVTC-10 | 500 | Ocurrió un error inesperado. Por favor contactarse con Soporte Técnico
+        | CVTC-11 | 503 | El servicio no se encuentra disponible
+      operationId: addComment
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/issueIdOrKey'
+        - $ref: '#/components/parameters/expand'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+        required: true
+      responses:
+        '201':
+          description: Operación exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+        '400':
+          description: |-
+            Devuelto si la solicitud
+              * Faltan campos obligatorios.
+        
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCollectionMetadataResponse'
+        '401':
+          description: Las credenciales de autenticación son incorrectas.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCollectionMetadataResponse'
+        '403':
+          description: Acceso denegado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCollectionMetadataResponse'
+        '404':
+          description: Recurso invalido.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCollectionMetadataResponse'
+        '429':
+          description: Servicio saturado de consultas.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCollectionMetadataResponse'
+        '500':
+          description: Ocurrió un error inesperado. Por favor contactarse con Soporte Técnico
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        '503':
+          description: El servicio no se encuentra disponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+      x-atlas-header:
+        $ref: '#/components/schemas/IssuesHeaders'
+components:
+  parameters:
+    Authorization:
+      name: Authorization
+      in: header
+      description: Token de Authorización
+      required: true
+      schema:
+        type: string
+        example: Bearer 363536363jjxnj63633611
+    Ocp-Apim-Subscription-Key:
+      name: Ocp-Apim-Subscription-Key
+      in: header
+      description: 'Identificador de suscripción, este campo es obtenido al momento de la suscripción.'
+      required: true
+      schema:
+        maxLength: 32
+        minLength: 32
+        pattern: '^[a-z0-9]{32}$'
+        type: string
+        example: 3cfdad6e03c24d0ab7112dce75cdba35
+    issueIdOrKey:
+      name: issueIdOrKey
+      in: path
+      description: El ID o clave del Issue.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+      example: ITSM-2825
+    Request-ID:  
+      name: Request-ID
+      in: header
+      description: Este campo es un valor estandar ya existente y sera usado como identificador.
+      required: true
+      schema:
+        maxLength: 36
+        pattern: '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$'
+        type: string
+        example: 550e8400-e29b-41d4-a716-446655440000
+    request-date: 
+      name: request-date
+      in: header
+      description: Fecha de la petición
+      required: true
+      schema:
+        maxLength: 29
+        pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{4}([a-z]|[A-Z]|\d)?$'
+        type: string
+        example: '2020-10-09T14:02:03.987-0700'
+    app-code:  
+      name: app-code
+      in: header
+      description: 'Codigo de la aplicacion que invoca el servicio. Se debe usar el codigo de 2 caracteres que tienen asignada las aplicaciones, puede ser el canal.'
+      required: true
+      schema:
+        maxLength: 2
+        minLength: 2
+        pattern: '^[0-9A-Z]*$'
+        type: string
+        example: P0
+    caller-name:  
+      name: caller-name
+      in: header
+      description: Nombre de la API que realiza la invocacion al servicio.
+      required: true
+      schema:
+        maxLength: 100
+        minLength: 5
+        pattern: '^[0-9a-zA-Z.-]*$'
+        type: string
+        example: atlas-cross-services-loans-deposits-loan-loans-v2
+    startAt:
+      name: startAt
+      in: query
+      description: El índice del primer elemento que se devolverá en una página de resultados (Page offset).
+      required: true
+      style: form
+      explode: true
+      schema:
+        minimum: 0
+        type: integer
+        default: 0
+        example: 1
+    maxResults:  
+      name: maxResults
+      in: query
+      description: 'El número máximo de elementos a devolver por página. Para administrar el tamaño de la página, Jira puede devolver menos elementos por página cuando se solicita una gran cantidad de campos. La mayor cantidad de elementos devueltos por página se logra cuando se solicita solo la identificación o la clave.'
+      required: true
+      style: form
+      explode: true
+      schema:
+        maximum: 100
+        minimum: 0
+        type: integer
+      example: 100
+    query:
+      name: query
+      in: query
+      description: 'Una cadena de consulta que se compara con los atributos del usuario  (displayName y emailAddress) para encontrar usuarios relevantes. La cadena  puede coincidir con el prefijo del valor del atributo. Por ejemplo,  query=john coincide con un usuario con un displayName de John Smith y un  usuario con una emailAddress de johnson@example.com.'
+      required: false
+      schema:
+        type: string
+        example: johnson@example.com
+    username:    
+      name: username
+      in: query
+      description: Nombres y apellidos del usuario que se requiere buscar.
+      required: false
+      schema:
+        type: string
+        example: John Smith
+    accountId:    
+      name: accountId
+      in: query
+      description: 'Una cadena de consulta que coincide exactamente con un ID de cuenta de usuario. Obligatorio, a menos que se especifique    una consulta o propiedad.'
+      required: false
+      schema:
+        maxLength: 128
+        type: string
+        example: '700324:6cx6hf61-e542-4432-xf6e-a4604adee584'
+    property:    
+      name: property
+      in: query
+      description: 'Una cadena de consulta utilizada para buscar propiedades. Las claves  de propiedad se especifican por ruta, por lo que no se pueden utilizar  claves de propiedad que contengan caracteres de punto (.) o iguales (=).'
+      required: false
+      schema:
+        type: string
+    transitionId:
+      name: transitionId
+      in: query
+      description: El identificador de la transición.
+      required: false
+      style: form
+      explode: true
+      schema:
+        pattern: '^([0-9]){1,10}$'
+        type: string
+      example: '101'
+    skipRemoteOnlyCondition:
+      name: skipRemoteOnlyCondition
+      in: query
+      description: |
+        Si las transiciones que la condicion oculta del usuario  son incluidas en el response.
+      required: false
+      style: form
+      explode: true
+      schema:
+        pattern: ^(true|false)$
+        type: boolean
+        default: false
+      example: true
+    includeUnavailableTransitions:
+      name: includeUnavailableTransitions
+      in: query
+      description: |
+        Si los detalles de las transiciones que falla una condicion son incluidos en el response.
+      required: false
+      style: form
+      explode: true
+      schema:
+        pattern: ^(true|false)$
+        type: boolean
+        default: false
+      example: true
+    sortByOpsBarAndStatus:
+      name: sortByOpsBarAndStatus
+      in: query
+      description: |
+        Si las transiciones son ordenadas por el valor de secuencia ops-bar primero y luego en el orden de categoria (Todo, In Progress, Done) o solo por el valor de secuencia ops-bar.
+      required: false
+      style: form
+      explode: true
+      schema:
+        pattern: ^(true|false)$
+        type: boolean
+        default: false
+      example: true
+    notifyUsers:
+      name: notifyUsers
+      in: query
+      description: 'Si se envía un correo electrónico de notificación sobre la actualización del Issues a todos los observadores. Para deshabilitar la notificación, se requieren permisos de administración de Jira o de proyecto. Si el usuario no tiene el permiso necesario, la solicitud se ignora.'
+      required: false
+      style: form
+      explode: true
+      schema:
+        pattern: ^(true|false)$
+        type: boolean
+        default: true
+      example: true
+    overrideScreenSecurity:
+      name: overrideScreenSecurity
+      in: query
+      description: 'Si se anula la seguridad de la pantalla para permitir la edición de campos ocultos. Disponible para usuarios de la aplicación Connect con *Administrar Jira* [permiso global](https://confluence.atlassian.com/x/x4dKLg) y aplicaciones Forge que actúan en nombre de los usuarios con *Administrar Jira* [permiso global](https://confluence.atlassian.com/x/x4dKLg).'
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: boolean
+        default: false
+      example: true
+    overrideEditableFlag:
+      name: overrideEditableFlag
+      in: query
+      description: 'Si se anula la seguridad de la pantalla para permitir que se editen campos no editables. Disponible para usuarios de la aplicación Connect con *Administrar Jira* [permiso global](confluence.atlassian.com/x/x4dKLg) y aplicaciones Forge que actúan en nombre de los usuarios con *Administrar Jira* [permiso global](confluence.atlassian.com/x/x4dKLg).'
+      required: false
+      style: form
+      explode: true
+      schema:
+        pattern: ^(true|false)$
+        type: boolean
+        default: false
+      example: true
+    expand:
+      name: expand
+      in: query
+      description: |-
+        Uselo [expand](#expansion) para incluir información adicional sobre los problemas en la respuesta. Este parámetro acepta una lista separada por comas. Las opciones de ampliación incluyen
+        *  renderedFields Devuelve valores de campo representados en formato HTML.
+       
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+      example: names
+  schemas:
+    IssuesHeaders:
+      type: object
+    MetadataResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        status:
+          type: integer
+          example: 201
+        businessId:
+          type: string
+          example: CISM-02
+        message:
+          type: string
+          example: Creación exitosa
+        messageDetail:
+          type: string
+          example: Detalle del error backend
+    ErrorCollectionMetadataResponse:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/MetadataResponse'
+        data:
+          $ref: '#/components/schemas/ErrorCollectionResponse'
+      description: Detalle de la respuesta de la respuesta de error.
+    ErrorCollectionResponse:
+      type: object
+      properties:
+        errorMessages:
+          type: array
+          description: 'La lista de mensajes de error producidos por esta operación. Por ejemplo, se debe proporcionar la clave del parámetro de entrada'
+          items:
+            type: string
+            example: item
+          example:
+            - ErrorMessaje
+        errors:
+          type: object
+          description: 'La lista de errores por parámetro devuelto por la operación. Por ejemplo, projectKey Las claves del proyecto deben comenzar con una letra mayúscula, seguida de uno o más caracteres alfanuméricos en mayúscula.'
+        status:
+          type: integer
+          format: int32
+          example: 31313
+        warningMessages:
+          type: array
+          description: 'La lista de mensajes de advertencia de error de esta operación. Por ejemplo, se debe proporcionar la clave del parámetro de entrada.'
+          items:
+            type: string
+            example: item
+          example:
+            - AlertMessage
+        reasons:
+          type: array
+          description: La lista de razones.
+          items:
+            type: string
+            example: item
+          example:
+            - Reason
+        metadata:
+          $ref: '#/components/schemas/MetadataResponse'
+      additionalProperties: false
+      description: Mensajes de error de una operación.
+    ApiException:
+      title: ApiException
+      type: object
+      properties:
+        code:
+          type: string
+          description: Codigo de error de Sistema
+          example: TL0001
+        description:
+          type: string
+          description: Descripcion del error de Sistema
+          example: Error al llamar al servicio
+        errorType:
+          type: string
+          description: Tipo de Error de Sistema
+          example: TECHNICAL
+        exceptionDetails:
+          type: array
+          description: Lista de detalles del error
+          items:
+            $ref: '#/components/schemas/ApiExceptionDetail'
+        properties:
+          type: object
+          properties: {}
+          description: Lista de propiedades especiales.
+      description: Datos del error de sistema.
+    ApiExceptionDetail:
+      title: ApiExceptionDetail
+      type: object
+      properties:
+        code:
+          type: string
+          description: Codigo de error del Detalle/Proveedor
+          example: MB0008
+        component:
+          type: string
+          description: Nombre del componente de falla
+          example: MB.CardInqV2
+        description:
+          type: string
+          description: Descripcion del Detalle
+          example: Codigo invalido para el canal
+      description: Datos del error técnico.
+    
+    CommentRequest:
+      required:
+        - body
+      type: object
+      properties:
+        self:
+          type: string
+          description: La URL del comentario
+          readOnly: true
+          example: 'https://your-domain.atlassian.net/rest/api/3/comment/9'
+        id:
+          type: string
+          description: El ID del comentario
+          readOnly: true
+          example: '10153'
+        author:
+          description: El ID del usuario que ha creado el comentario.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/UserDetailsResponse'
+        body:
+          type: object
+          description: El texto del comentario en developer.atlassian.com/cloud/jira/platform/apis/document/structure/
+        renderedBody:
+          type: string
+          description: La version renderizada del comentario.
+          readOnly: true
+          example: '1'
+        updateAuthor:
+          description: El ultimo ID del usuario que actualizo el comentario.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/UserDetailsResponse'
+        created:
+          type: string
+          description: La fecha y el tiempo en el cual el comentario fue creado.
+          format: date-time
+          readOnly: true
+          example: '2020-10-09T14:02:03.987-0700'
+        updated:
+          type: string
+          description: La fecha y tiempo en el cual el comentario fue actualizado.
+          format: date-time
+          readOnly: true
+          example: '2020-10-09T14:02:03.987-0700'
+        visibility:
+          description: El grupo o rol que tiene visibilidad a este comentario. Opcionalmente de crear y actualizar.
+          allOf:
+            - $ref: '#/components/schemas/VisibilityResponse'
+        jsdPublic:
+          type: boolean
+          description: 'Si el comentario es visible en Jira Service Desk. El valor predeterminado es verdadero cuando se crean comentarios en Jira Cloud Platform.'
+          readOnly: true
+          example: false
+        jsdAuthorCanSeeRequest:
+          type: boolean
+          description: Si el comentario fue agregado desde un email enviado a una persona que no es parte del Issue. Busca en support.atlassian.com/jira-service-management-cloud/docs/allow-external-emails-to-be-added-as-comments-on-issues/ para mas informacion o desarrollar esta funcionalidad.
+          readOnly: true
+          example: false
+        
+      additionalProperties: true
+      description: Un comentario.
+    CommentResponse:
+      type: object
+      properties:
+        self:
+          type: string
+          description: La URL del comentario
+          readOnly: true
+          example: 'https://your-domain.atlassian.net/rest/api/3/comment/10153'
+        id:
+          type: string
+          description: El ID del comentario
+          readOnly: true
+          example: '10153'
+        author:
+          description: El ID del usuario que ha creado el comentario.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/UserDetailsResponse'
+        body:
+          type: object
+          description: El texto del comentario en developer.atlassian.com/cloud/jira/platform/apis/document/structure/
+        renderedBody:
+          type: string
+          description: La version renderizada del comentario.
+          readOnly: true
+          example: '1'
+        updateAuthor:
+          description: El ultimo ID del usuario que actualizo el comentario.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/UserDetailsResponse'
+        created:
+          type: string
+          description: La fecha y el tiempo en el cual el comentario fue creado.
+          format: date-time
+          readOnly: true
+          example: '2020-10-09T14:02:03.987-0700'
+        updated:
+          type: string
+          description: La fecha y tiempo en el cual el comentario fue actualizado.
+          format: date-time
+          readOnly: true
+          example: '2020-10-09T14:02:03.987-0700'
+        visibility:
+          description: El grupo o rol que tiene visibilidad a este comentario. Opcionalmente de crear y actualizar.
+          allOf:
+            - $ref: '#/components/schemas/VisibilityResponse'
+        jsdPublic:
+          type: boolean
+          description: 'Si el comentario es visible en Jira Service Desk. El valor predeterminado es verdadero cuando se crean comentarios en Jira Cloud Platform. '
+          readOnly: true
+          example: false
+        jsdAuthorCanSeeRequest:
+          type: boolean
+          description: Si el comentario fue agregado desde un email enviado a una persona que no es parte del Issue. Busca en support.atlassian.com/jira-service-management-cloud/docs/allow-external-emails-to-be-added-as-comments-on-issues/ para mas informacion o desarrollar esta funcionalidad.
+          readOnly: true
+          example: false
+        
+      additionalProperties: true
+      description: Un comentario.
+    UserDetailsResponse:
+      type: object
+      properties:
+        self:
+          type: string
+          description: La URL del usuario.
+          readOnly: true
+          example: 'https://your-domain.atlassian.net/rest/api/3/user/2321'
+        name:
+          type: string
+          description: 'Esta propiedad ya no está disponible y pronto se eliminará de la documentación. Consulte el [aviso de obsolescencia](https://developer.atlassian.com/cloud/jira/platform/deprecation-notice-user-privacy-api-migration-guide/) para detalles.'
+          readOnly: true
+          example: luam
+        key:
+          type: string
+          description: 'Esta propiedad ya no está disponible y pronto se eliminará de la documentación. Consulte el [aviso de obsolescencia](developer.atlassian.com/cloud/jira/platform/deprecation-notice-user-privacy-api-migration-guide/) para detalles.'
+          readOnly: true
+          example: user-2131
+        accountId:
+          maxLength: 128
+          type: string
+          description: 'El ID de cuenta del usuario, que identifica de forma única al usuario en todos los productos de Atlassian. Por ejemplo, *5b10ac8d82e05b22cc7d4ef5*.'
+          example: 5b10ac8d82e05b22cc7d4ef5
+        emailAddress:
+          type: string
+          description: 'La dirección de correo electrónico del usuario. Dependiendo de la configuración de privacidad del usuario, esto puede devolverse como nulo.'
+          readOnly: true
+          example: luam@jira.com
+        avatarUrls:
+          description: Los avatares del usuario.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/AvatarUrlsBeanResponse'
+        displayName:
+          type: string
+          description: 'El nombre para mostrar del usuario. Dependiendo de la configuración de privacidad del usuario, esto puede devolver un valor alternativo.'
+          readOnly: true
+          example: luam12
+        active:
+          type: boolean
+          description: Si el usuario está activo.
+          readOnly: true
+          example: false
+        timeZone:
+          type: string
+          description: 'La zona horaria especificada en el perfil del usuario. Dependiendo de la configuración de privacidad del usuario, esto puede devolverse como nulo.'
+          readOnly: true
+          example: America/Lima
+        accountType:
+          type: string
+          description: 'El tipo de cuenta representada por este usuario. Este será uno de atlassian (usuarios normales), aplicación (usuario de la aplicación) o cliente (usuario cliente de Jira Service Desk).'
+          readOnly: true
+          example: atlassian
+      additionalProperties: false
+      description: |-
+        Detalles del usuario permitidos por la configuración de privacidad de la cuenta Atlassian del usuario. Sin embargo, tenga en cuenta estas excepciones.
+       
+    VisibilityResponse:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Cualquier visibilidad de este item estara restringido a un grupo o rol
+          example: group
+          enum:
+            - group
+            - role
+        value:
+          type: string
+          description: 'El nombre del grupo o rol que puede visibilizar este item restringido. Por favor tomar nota que este item esta restringido y que el nombre del grupo es mutable, para una identificacion mas confiable de un grupo utiliza identifier.'
+          example: itsm
+        identifier:
+          type: string
+          description: El ID del grupo o el nombre del rol que tiene visibilidad a este item.
+          example: Administrators
+      additionalProperties: true
+      description: El grupo o rol con el cual este item es visible.
+    AvatarUrlsBeanResponse:
+      type: object
+      properties:
+        16x16:
+          type: string
+          description: La URL del avatar de 16x16 píxeles del elemento.
+          format: uri
+          example: 'https://your-domain.atlassian.net/rest/api/3/avatar/images16x16/images.png'
+        24x24:
+          type: string
+          description: La URL del avatar de 24x24 píxeles del elemento.
+          format: uri
+          example: 'https://your-domain.atlassian.net/rest/api/3/avatar/images24x24/images.png'
+        32x32:
+          type: string
+          description: La URL del avatar de 32x32 píxeles del elemento.
+          format: uri
+          example: 'https://your-domain.atlassian.net/rest/api/3/avatar/images32x32/images.png'
+        48x48:
+          type: string
+          description: La URL del avatar de 48x48 píxeles del elemento.
+          format: uri
+          example: 'https://your-domain.atlassian.net/rest/api/3/avatar/images48x48/images.png'
+      additionalProperties: false
+   
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'Token de Authorización, header Authorization, ejemplo: Bearer 363536363jjxnj63633611'
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
