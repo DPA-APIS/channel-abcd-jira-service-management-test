@@ -20,7 +20,7 @@ paths:
     post:
       tags:
         - Issue Comments 
-      summary: Agrega comentarios AAAAA.
+      summary: Agrega comentarios AAAAA BBBB.
       description: |-
         ### Acerca de la funcionalidad expuesta <br/>
         La funcionalidad permite crear un comentario contenido dentro de un Issue en Jira.
