@@ -56,6 +56,7 @@ paths:
         - $ref: '#/components/parameters/Authorization'
         - $ref: '#/components/parameters/issueIdOrKey'
         - $ref: '#/components/parameters/expand'
+        - $ref: '#/components/parameters/overrideEditableFlag'
       requestBody:
         content:
           application/json:
@@ -132,9 +133,9 @@ components:
       description: 'Identificador de suscripción, este campo es obtenido al momento de la suscripción.'
       required: true
       schema:
-        maxLength: 32
-        minLength: 32
-        pattern: '^[a-z0-9]{32}$'
+        maxLength: 33
+        minLength: 33
+        pattern: '^[a-z0-9]{32}$AAAAA'
         type: string
         example: 3cfdad6e03c24d0ab7112dce75cdba35
     issueIdOrKey:
@@ -335,7 +336,7 @@ components:
       in: query
       description: |-
         Uselo [expand](#expansion) para incluir información adicional sobre los problemas en la respuesta. Este parámetro acepta una lista separada por comas. Las opciones de ampliación incluyen
-        *  renderedFields Devuelve valores de campo representados en formato HTML.
+        *  renderedFields Devuelve valores de campo representados en formato HTMLAAA.
        
       required: false
       style: form
@@ -613,7 +614,7 @@ components:
           type: string
           description: 'El nombre para mostrar del usuario. Dependiendo de la configuración de privacidad del usuario, esto puede devolver un valor alternativo.'
           readOnly: true
-          example: luam12
+          example: luam124444
         active:
           type: boolean
           description: Si el usuario está activo.
