@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: API UX ABCD Jira Service Management V1
   description: 'Permite registrar y actualizar Issues, Attachment de Jira.'
-  version: 1.0.1
+  version: 1.0.2
 servers:
   - url: /channel/abcd/v1
 x-dpa-api-type: UX
@@ -20,37 +20,14 @@ paths:
     post:
       tags:
         - Issue Comments 
-      summary: Agrega comentarios AAAAA BBBB CCCCC DDDDD EEEEE FFFFF GGGG HHH II G.
+      summary: Agrega comentarios HOLAAAAAAA
       description: |-
         ### Acerca de la funcionalidad expuesta <br/>
         La funcionalidad permite crear un comentario contenido dentro de un Issue en Jira.
-         
-        ### Data de Prueba
-        Ninguno.
-
-        ### Precondiciones para el consumo de esta versión de la API
-        Ninguno.
-
+        
         ### Usos válidos de Query Parameters
         No Aplica
 
-        ### Variantes válidas del Payload (Cuerpo del mensaje)
-        No aplica.
-
-        ### Lista de Valores usadas en esta versión de la API
-        No aplica.
-
-        ### Códigos de error usados en esta versión de la API
-        |  Código | HTTP Status | Descripción |
-        |---------|-------------|-------------|
-        | CVTC-02 | 201 | Creacion exitosa
-        | CVTC-04 | 400 | Los datos proporcionados no son válidos
-        | CVTC-05 | 401 | Las credenciales de autenticación son incorrectas
-        | CVTC-06 | 403 | Acceso denegado
-        | CVTC-12 | 429 | Servicio saturado de consultas
-        | CVTC-07 | 404 | Recurso invalido  
-        | CVTC-10 | 500 | Ocurrió un error inesperado. Por favor contactarse con Soporte Técnico
-        | CVTC-11 | 503 | El servicio no se encuentra disponible
       operationId: addComment
       parameters:
         - $ref: '#/components/parameters/Authorization'
@@ -132,11 +109,11 @@ components:
       description: 'Identificador de suscripción, este campo es obtenido al momento de la suscripción.'
       required: true
       schema:
-        maxLength: 32
-        minLength: 32
-        pattern: '^[a-z0-9]{32}$'
+        maxLength: 43
+        minLength: 43
+        pattern: '^[a-z0-9]{32}$AAAAAA'
         type: string
-        example: 3cfdad6e03c24d0ab7112dce75cdba35
+        example: 3cfdad6e03c24d0ab7112dce75cdba35AAAA
     issueIdOrKey:
       name: issueIdOrKey
       in: path
@@ -146,7 +123,7 @@ components:
       explode: false
       schema:
         type: string
-      example: ITSM-2825
+      
     Request-ID:  
       name: Request-ID
       in: header
