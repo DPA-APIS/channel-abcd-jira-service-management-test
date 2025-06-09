@@ -109,8 +109,8 @@ components:
       description: 'Identificador de suscripción, este campo es obtenido al momento de la suscripción.'
       required: true
       schema:
-        maxLength: 35
-        minLength: 35
+        maxLength: 36
+        minLength: 36
         pattern: '^[a-z0-9]{32}$AAAAAA'
         type: string
         example: 3cfdad6e03c24d0ab7112dce75cdba35AAAA
