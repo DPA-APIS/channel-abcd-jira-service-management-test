@@ -20,43 +20,19 @@ paths:
     post:
       tags:
         - Issue Comments 
-      summary: Agrega comentarios AAAAA BBBB CCCCC DDDDD EEEEE FFFFF GGGG HHH II G.
+      summary: Agrega comentarios HOLAAAAAAA
       description: |-
         ### Acerca de la funcionalidad expuesta <br/>
         La funcionalidad permite crear un comentario contenido dentro de un Issue en Jira.
-         
-        ### Data de Prueba
-        Ninguno.
-
-        ### Precondiciones para el consumo de esta versión de la API
-        Ninguno.
-
+        
         ### Usos válidos de Query Parameters
         No Aplica
 
-        ### Variantes válidas del Payload (Cuerpo del mensaje)
-        No aplica.
-
-        ### Lista de Valores usadas en esta versión de la API
-        No aplica.
-
-        ### Códigos de error usados en esta versión de la API
-        |  Código | HTTP Status | Descripción |
-        |---------|-------------|-------------|
-        | CVTC-02 | 201 | Creacion exitosa
-        | CVTC-04 | 400 | Los datos proporcionados no son válidos
-        | CVTC-05 | 401 | Las credenciales de autenticación son incorrectas
-        | CVTC-06 | 403 | Acceso denegado
-        | CVTC-12 | 429 | Servicio saturado de consultas
-        | CVTC-07 | 404 | Recurso invalido  
-        | CVTC-10 | 500 | Ocurrió un error inesperado. Por favor contactarse con Soporte Técnico
-        | CVTC-11 | 503 | El servicio no se encuentra disponible
       operationId: addComment
       parameters:
         - $ref: '#/components/parameters/Authorization'
         - $ref: '#/components/parameters/issueIdOrKey'
         - $ref: '#/components/parameters/expand'
-        - $ref: '#/components/parameters/overrideEditableFlag'
       requestBody:
         content:
           application/json:
@@ -135,9 +111,9 @@ components:
       schema:
         maxLength: 33
         minLength: 33
-        pattern: '^[a-z0-9]{32}$AAAAA'
+        pattern: '^[a-z0-9]{32}$AAAAAA'
         type: string
-        example: 3cfdad6e03c24d0ab7112dce75cdba35
+        example: 3cfdad6e03c24d0ab7112dce75cdba35AAAA
     issueIdOrKey:
       name: issueIdOrKey
       in: path
@@ -147,7 +123,7 @@ components:
       explode: false
       schema:
         type: string
-      example: ITSM-2825
+      
     Request-ID:  
       name: Request-ID
       in: header
@@ -336,7 +312,7 @@ components:
       in: query
       description: |-
         Uselo [expand](#expansion) para incluir información adicional sobre los problemas en la respuesta. Este parámetro acepta una lista separada por comas. Las opciones de ampliación incluyen
-        *  renderedFields Devuelve valores de campo representados en formato HTMLAAA.
+        *  renderedFields Devuelve valores de campo representados en formato HTML.
        
       required: false
       style: form
@@ -614,7 +590,7 @@ components:
           type: string
           description: 'El nombre para mostrar del usuario. Dependiendo de la configuración de privacidad del usuario, esto puede devolver un valor alternativo.'
           readOnly: true
-          example: luam124444
+          example: luam12
         active:
           type: boolean
           description: Si el usuario está activo.
