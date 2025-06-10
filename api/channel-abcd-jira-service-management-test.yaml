@@ -41,7 +41,7 @@ paths:
         required: true
       responses:
         '201':
-          description: Operación exitosa.
+          description: Operación exitosaa.
           content:
             application/json:
               schema:
