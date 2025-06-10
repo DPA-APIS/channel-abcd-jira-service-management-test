@@ -42,7 +42,7 @@ paths:
             pattern: '^[a-z0-9]{32}CCCC'
             example: 3cfdad6e03c24d0ab7112dce75cdba35DDDDD
         - $ref: '#/components/parameters/issueIdOrKey'
-        - $ref: '#/components/parameters/expandOld'
+        - $ref: '#/components/parameters/expandOld2'
       requestBody:
         content:
           application/json:
@@ -316,7 +316,7 @@ components:
         type: boolean
         default: false
       example: true
-    expandOld:
+    expandOld2:
       name: expand
       in: query
       description: |-
@@ -497,7 +497,7 @@ components:
           type: string
           description: La fecha y el tiempo en el cual el comentario fue creado.
           format: date-time
-          readOnly: false
+          readOnly: true
           example: '2020-10-09T14:02:03.987-0700'
         
         updated:
