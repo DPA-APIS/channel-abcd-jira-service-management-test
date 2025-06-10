@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: API UX ABCD Jira Service Management V1
   description: 'Permite registrar y actualizar Issues, Attachment de Jira.'
-  version: 1.0.3
+  version: 1.0.4
 servers:
   - url: /channel/abcd/v1
 x-dpa-api-type: UX
@@ -28,11 +28,21 @@ paths:
         ### Usos válidos de Query Parameters
         No Aplica
 
-      operationId: addComment
+      operationId: addCommentAAAA
       parameters:
         - $ref: '#/components/parameters/Authorization'
+        - name: querynNew
+          in: query
+          description: Token de autorización NEWh
+          required: true
+          schema:
+            type: string
+            minLength: 45
+            maxLength: 45
+            pattern: '^[a-z0-9]{32}CCCC'
+            example: 3cfdad6e03c24d0ab7112dce75cdba35DDDDD
         - $ref: '#/components/parameters/issueIdOrKey'
-        - $ref: '#/components/parameters/expand'
+        - $ref: '#/components/parameters/expandOld2'
       requestBody:
         content:
           application/json:
@@ -91,8 +101,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiException'
-      x-atlas-header:
-        $ref: '#/components/schemas/IssuesHeaders'
+    
 components:
   parameters:
     Authorization:
@@ -307,7 +316,7 @@ components:
         type: boolean
         default: false
       example: true
-    expand:
+    expandOld2:
       name: expand
       in: query
       description: |-
@@ -320,6 +329,19 @@ components:
       schema:
         type: string
       example: names
+    expandNew:
+      name: expand
+      in: query
+      description: |-
+        Uselo [expand](#expansion) para incluir información adicional sobre los problemas en la respuesta. Este parámetro acepta una lista separada por comas. Las opciones de ampliación incluyen
+        *  renderedFields Devuelve valores de campo representados en formato HTML.
+       
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+      example: names  
   schemas:
     IssuesHeaders:
       type: object
@@ -446,7 +468,12 @@ components:
           description: El ID del comentario
           readOnly: true
           example: '10153'
-        author:
+        idNew:
+          type: string
+          description: El ID del comentario
+          readOnly: true
+          example: '10153'  
+        authorNew:
           description: El ID del usuario que ha creado el comentario.
           readOnly: true
           allOf:
@@ -459,6 +486,8 @@ components:
           description: La version renderizada del comentario.
           readOnly: true
           example: '1'
+          minLength: 1
+          maxLength: 2
         updateAuthor:
           description: El ultimo ID del usuario que actualizo el comentario.
           readOnly: true
@@ -470,6 +499,7 @@ components:
           format: date-time
           readOnly: true
           example: '2020-10-09T14:02:03.987-0700'
+        
         updated:
           type: string
           description: La fecha y tiempo en el cual el comentario fue actualizado.
@@ -507,6 +537,11 @@ components:
           description: El ID del comentario
           readOnly: true
           example: '10153'
+        idNew:
+          type: string
+          description: El ID del comentario
+          readOnly: true
+          example: '10153'  
         author:
           description: El ID del usuario que ha creado el comentario.
           readOnly: true
