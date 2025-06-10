@@ -33,7 +33,7 @@ paths:
         - $ref: '#/components/parameters/Authorization'
         - name: querynNew
           in: query
-          description: Token de autorización NEW
+          description: Token de autorización NEWh
           required: true
           schema:
             type: string
