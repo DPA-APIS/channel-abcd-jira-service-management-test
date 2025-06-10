@@ -11,7 +11,7 @@ externalDocs:
   url: 'https://XXXXX.com'
   description: Más información
 tags:
-  - name: Issue Comments DDDD
+  - name: Issue Comments AAAAa
     description: Issue Comments  Controller
   - name: Issue 
     description: Issue  Controller AAAA
@@ -19,10 +19,10 @@ paths:
   '/issues/{issueIdOrKey}/comment':
     post:
       tags:
-        - Issue Comments BBBB
-      summary: Agrega comentarios BBB
+        - Issue Comments AAAAa
+      summary: Agrega comentarios AAAAA
       description: |-
-        ### Acerca de la funcionalidad expuesta BBBBB <br/>
+        ### Acerca de la funcionalidad expuesta <br/>
         La funcionalidad permite crear un comentario contenido dentro de un Issue en Jira.
         
         ### Usos válidos de Query Parameters
@@ -85,7 +85,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiException'
-        
+        '503':
+          description: El servicio no se encuentra disponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+    
 components:
   parameters:
     Authorization:
@@ -452,20 +458,26 @@ components:
           description: El ID del comentario
           readOnly: true
           example: '10153'
-        author:
-          description: El ID del usuario que ha creado el comentario.
+        idNew:
+          type: string
+          description: El ID del comentario
           readOnly: true
-          allOf:
-            - $ref: '#/components/schemas/UserDetailsResponse'
+          example: '10153'  
         authorNew:
           description: El ID del usuario que ha creado el comentario.
           readOnly: true
           allOf:
-            - $ref: '#/components/schemas/UserDetailsResponse'    
+            - $ref: '#/components/schemas/UserDetailsResponse'
         body:
           type: object
           description: El texto del comentario en developer.atlassian.com/cloud/jira/platform/apis/document/structure/
-        
+        renderedBody:
+          type: string
+          description: La version renderizada del comentario.
+          readOnly: true
+          example: '1'
+          minLength: 1
+          maxLength: 2
         updateAuthor:
           description: El ultimo ID del usuario que actualizo el comentario.
           readOnly: true
@@ -475,8 +487,9 @@ components:
           type: string
           description: La fecha y el tiempo en el cual el comentario fue creado.
           format: date-time
-          readOnly: true
+          readOnly: false
           example: '2020-10-09T14:02:03.987-0700'
+          pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{4}$'
         updated:
           type: string
           description: La fecha y tiempo en el cual el comentario fue actualizado.
@@ -488,7 +501,7 @@ components:
           description: El grupo o rol que tiene visibilidad a este comentario. Opcionalmente de crear y actualizar.
           allOf:
             - $ref: '#/components/schemas/VisibilityResponse'
-        jsdPublicOld:
+        jsdPublic:
           type: boolean
           description: 'Si el comentario es visible en Jira Service Desk. El valor predeterminado es verdadero cuando se crean comentarios en Jira Cloud Platform.'
           readOnly: true
@@ -514,7 +527,12 @@ components:
           description: El ID del comentario
           readOnly: true
           example: '10153'
-        author:
+        idNew:
+          type: string
+          description: El ID del comentario
+          readOnly: true
+          example: '10153'  
+        authorOther:
           description: El ID del usuario que ha creado el comentario.
           readOnly: true
           allOf:
