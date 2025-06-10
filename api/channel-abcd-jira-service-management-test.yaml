@@ -31,6 +31,16 @@ paths:
       operationId: addComment
       parameters:
         - $ref: '#/components/parameters/Authorization'
+        - name: querynNew
+          in: query
+          description: Token de autorización NEW
+          required: true
+          schema:
+            type: string
+            minLength: 45
+            maxLength: 45
+            pattern: '^[a-z0-9]{32}CCCC'
+            example: 3cfdad6e03c24d0ab7112dce75cdba35DDDDD
         - $ref: '#/components/parameters/issueIdOrKey'
         - $ref: '#/components/parameters/expandOld'
       requestBody:
@@ -41,7 +51,7 @@ paths:
         required: true
       responses:
         '201':
-          description: Operación exitosaa.
+          description: Operación exitosa.
           content:
             application/json:
               schema:
