@@ -499,7 +499,7 @@ components:
           format: date-time
           readOnly: false
           example: '2020-10-09T14:02:03.987-0700'
-          pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{4}$'
+        
         updated:
           type: string
           description: La fecha y tiempo en el cual el comentario fue actualizado.
