@@ -28,7 +28,7 @@ paths:
         ### Usos válidos de Query Parameters
         No Aplica
 
-      operationId: addCommentAAAAa
+      operationId: addCommentAAAA
       parameters:
         - $ref: '#/components/parameters/Authorization'
         - name: querynNew
