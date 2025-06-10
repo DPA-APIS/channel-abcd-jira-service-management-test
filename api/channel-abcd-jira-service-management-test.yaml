@@ -542,7 +542,7 @@ components:
           description: El ID del comentario
           readOnly: true
           example: '10153'  
-        authorOther:
+        author:
           description: El ID del usuario que ha creado el comentario.
           readOnly: true
           allOf:
