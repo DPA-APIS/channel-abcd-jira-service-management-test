@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: API UX ABCD Jira Service Management V1
   description: 'Permite registrar y actualizar Issues, Attachment de Jira.'
-  version: 1.0.2
+  version: 1.0.3
 servers:
   - url: /channel/abcd/v1
 x-dpa-api-type: UX
@@ -11,16 +11,16 @@ externalDocs:
   url: 'https://XXXXX.com'
   description: Más información
 tags:
-  - name: Issue Comments 
+  - name: Issue Comments AAAAa
     description: Issue Comments  Controller
   - name: Issue 
-    description: Issue  Controller
+    description: Issue  Controller AAAA
 paths:
   '/issues/{issueIdOrKey}/comment':
     post:
       tags:
-        - Issue Comments 
-      summary: Agrega comentarios HOLAAAAAAA
+        - Issue Comments AAAAa
+      summary: Agrega comentarios AAAAA
       description: |-
         ### Acerca de la funcionalidad expuesta <br/>
         La funcionalidad permite crear un comentario contenido dentro de un Issue en Jira.
@@ -337,7 +337,7 @@ components:
           example: CISM-02
         message:
           type: string
-          example: Creación exitosa
+          example: Creación exitosaAAAAA
         messageDetail:
           type: string
           example: Detalle del error backend
@@ -366,7 +366,7 @@ components:
         status:
           type: integer
           format: int32
-          example: 31313
+          example: 3131333
         warningMessages:
           type: array
           description: 'La lista de mensajes de advertencia de error de esta operación. Por ejemplo, se debe proporcionar la clave del parámetro de entrada.'
@@ -476,6 +476,7 @@ components:
           format: date-time
           readOnly: true
           example: '2020-10-09T14:02:03.987-0700'
+          pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{4}$'
         visibility:
           description: El grupo o rol que tiene visibilidad a este comentario. Opcionalmente de crear y actualizar.
           allOf:
@@ -519,6 +520,8 @@ components:
           description: La version renderizada del comentario.
           readOnly: true
           example: '1'
+          minLength: 1
+          maxLength: 2
         updateAuthor:
           description: El ultimo ID del usuario que actualizo el comentario.
           readOnly: true
