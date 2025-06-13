@@ -14,7 +14,7 @@ tags:
   - name: Issue Comments BBBB
     description: Issue Comments  Controller
   - name: Issue 
-    description: Issue  Controller AAAA
+    description: Issue  Controller BBBB
 paths:
   '/issues/{issueIdOrKey}/comment':
     post:
