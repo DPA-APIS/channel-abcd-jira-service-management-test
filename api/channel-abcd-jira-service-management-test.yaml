@@ -19,7 +19,7 @@ paths:
   '/issues/{issueIdOrKey}/comment':
     post:
       tags:
-        - Issue Comments AAAABBBBB
+        - Issue Comments BBBB
       summary: Agrega comentarios AAAAABBBB
       description: |-
         ### Acerca de la funcionalidad expuesta <br/>
