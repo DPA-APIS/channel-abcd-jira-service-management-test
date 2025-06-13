@@ -11,7 +11,7 @@ externalDocs:
   url: 'https://XXXXX.com'
   description: Más información
 tags:
-  - name: Issue Comments AAAAa
+  - name: Issue Comments BBBB
     description: Issue Comments  Controller
   - name: Issue 
     description: Issue  Controller AAAA
@@ -19,8 +19,8 @@ paths:
   '/issues/{issueIdOrKey}/comment':
     post:
       tags:
-        - Issue Comments AAAAa
-      summary: Agrega comentarios AAAAA
+        - Issue Comments AAAABBBBB
+      summary: Agrega comentarios AAAAABBBB
       description: |-
         ### Acerca de la funcionalidad expuesta <br/>
         La funcionalidad permite crear un comentario contenido dentro de un Issue en Jira.
