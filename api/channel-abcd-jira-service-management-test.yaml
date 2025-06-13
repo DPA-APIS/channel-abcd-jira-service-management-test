@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: API UX ABCD Jira Service Management V1
   description: 'Permite registrar y actualizar Issues, Attachment de Jira.'
-  version: 1.0.4
+  version: 1.0.5
 servers:
   - url: /channel/abcd/v1
 x-dpa-api-type: UX
@@ -11,16 +11,16 @@ externalDocs:
   url: 'https://XXXXX.com'
   description: Más información
 tags:
-  - name: Issue Comments AAAAa
+  - name: Issue Comments BBBB
     description: Issue Comments  Controller
   - name: Issue 
-    description: Issue  Controller AAAA
+    description: Issue  Controller BBBB
 paths:
   '/issues/{issueIdOrKey}/comment':
     post:
       tags:
-        - Issue Comments AAAAa
-      summary: Agrega comentarios AAAAA
+        - Issue Comments AABBB
+      summary: Agrega comentarios AAAAABBBB
       description: |-
         ### Acerca de la funcionalidad expuesta <br/>
         La funcionalidad permite crear un comentario contenido dentro de un Issue en Jira.
