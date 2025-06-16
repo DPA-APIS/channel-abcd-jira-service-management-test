@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: API UX ABCD Jira Service Management V1
   description: 'Permite registrar y actualizar Issues, Attachment de Jira.'
-  version: 1.0.7
+  version: 1.0.8
 servers:
   - url: /channel/abcd/v1
 x-dpa-api-type: UX
@@ -542,7 +542,7 @@ components:
           description: El ID del comentario
           readOnly: true
           example: '10153'
-        idDos:
+        idTRES:
           type: string
           description: El ID del comentario
           readOnly: true
