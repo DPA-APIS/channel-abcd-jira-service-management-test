@@ -542,7 +542,7 @@ components:
           description: El ID del comentario
           readOnly: true
           example: '10153'
-        idDos:
+        idTRES:
           type: string
           description: El ID del comentario
           readOnly: true
