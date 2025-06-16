@@ -473,6 +473,11 @@ components:
           description: El ID del comentario
           readOnly: true
           example: '10153'  
+        idNewDos:
+          type: string
+          description: El ID del comentario
+          readOnly: true
+          example: '10153'  
         authorNew:
           description: El ID del usuario que ha creado el comentario.
           readOnly: true
@@ -493,12 +498,12 @@ components:
           readOnly: true
           allOf:
             - $ref: '#/components/schemas/UserDetailsResponse'
-        created:
+        createdOld:
           type: string
           description: La fecha y el tiempo en el cual el comentario fue creado.
           format: date-time
           readOnly: true
-          example: '2020-10-09T14:02:03.987-0700'
+          example: '2020-10-09T14:02:03.987-0700'  
         
         updated:
           type: string
@@ -537,6 +542,11 @@ components:
           description: El ID del comentario
           readOnly: true
           example: '10153'
+        idDos:
+          type: string
+          description: El ID del comentario
+          readOnly: true
+          example: '10153'  
         idNew:
           type: string
           description: El ID del comentario
